@@ -1,7 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /**
  * @TODO: Define all the actions (creator) for the authUser state
  */
 
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
 
 export const ActionType = {
@@ -29,6 +31,7 @@ export function unsetAuthUserActionCreator() {
 
 export function asyncSetAuthUser({ id, password }) {
   return async (dispatch) => {
+    dispatch(showLoading());
     try {
       const token = await api.login({ id, password });
       api.putAccessToken(token);
@@ -38,12 +41,15 @@ export function asyncSetAuthUser({ id, password }) {
     } catch (error) {
       alert(error.message);
     }
+    dispatch(hideLoading());
   };
 }
 
 export function asyncUnsetAuthUser() {
   return (dispatch) => {
+    dispatch(showLoading());
     dispatch(unsetAuthUserActionCreator());
     api.putAccessToken('');
+    dispatch(hideLoading());
   };
 }

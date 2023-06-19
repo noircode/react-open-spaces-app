@@ -1,9 +1,11 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /**
  * @TODO: Create Redux store
  */
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { configureStore } from '@reduxjs/toolkit';
+import { loadingBarReducer } from 'react-redux-loading-bar';
 import authUserReducer from './authUser/reducer';
 import isPreloadReducer from './isPreload/reducer';
 import talkDetailReducer from './talkDetail/reducer';
@@ -17,6 +19,7 @@ const store = configureStore({
     users: usersReducer,
     talks: talksReducer,
     talkDetail: talkDetailReducer,
+    loadingBar: loadingBarReducer,
   },
 });
 

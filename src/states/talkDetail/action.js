@@ -1,7 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /**
  * @TODO: Define all the actions (creator) for the talkDetail state
  */
 
+import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
 
 export const ActionType = {
@@ -36,6 +38,7 @@ export function toggleLikeTalkDetailActionCreator(userId) {
 
 export function asyncReceiveTalkDetail(talkId) {
   return async (dispatch) => {
+    dispatch(showLoading());
     dispatch(clearTalkDetailActionCreator());
     try {
       const talkDetail = await api.getTalkDetail(talkId);
@@ -43,6 +46,7 @@ export function asyncReceiveTalkDetail(talkId) {
     } catch (error) {
       alert(error.message);
     }
+    dispatch(hideLoading());
   };
 }
 
